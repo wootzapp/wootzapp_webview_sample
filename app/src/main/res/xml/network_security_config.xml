@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Allow all AI API domains with proper SSL -->
+    <domain-config cleartextTrafficPermitted="false">
+        <!-- Google AI APIs -->
+        <domain includeSubdomains="true">generativelanguage.googleapis.com</domain>
+        <domain includeSubdomains="true">googleapis.com</domain>
+        <domain includeSubdomains="true">google.com</domain>
+
+        <!-- OpenAI APIs -->
+        <domain includeSubdomains="true">api.openai.com</domain>
+        <domain includeSubdomains="true">openai.com</domain>
+
+        <!-- Anthropic Claude -->
+        <domain includeSubdomains="true">api.anthropic.com</domain>
+        <domain includeSubdomains="true">anthropic.com</domain>
+
+        <!-- Other common AI APIs -->
+        <domain includeSubdomains="true">api.cohere.ai</domain>
+        <domain includeSubdomains="true">api.mistral.ai</domain>
+        <domain includeSubdomains="true">huggingface.co</domain>
+
+        <!-- Common testing domains -->
+        <domain includeSubdomains="true">httpbin.org</domain>
+        <domain includeSubdomains="true">jsonplaceholder.typicode.com</domain>
+
+        <trust-anchors>
+            <certificates src="system"/>
+            <certificates src="user"/>
+        </trust-anchors>
+    </domain-config>
+
+    <!-- Base configuration for all other domains -->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system"/>
+            <certificates src="user"/>
+        </trust-anchors>
+    </base-config>
+
+    <!-- Debug configuration (remove in production) -->
+    <debug-overrides>
+        <trust-anchors>
+            <certificates src="system"/>
+            <certificates src="user"/>
+        </trust-anchors>
+    </debug-overrides>
+</network-security-config>
