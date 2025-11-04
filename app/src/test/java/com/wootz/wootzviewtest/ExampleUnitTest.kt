@@ -1,4 +1,4 @@
-package com.wootzapp.webviewtest
+package com.wootz.wootzviewtest
 
 import org.junit.Test
 

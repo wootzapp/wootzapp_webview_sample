@@ -1,19 +1,24 @@
+import com.android.build.api.dsl.AaptOptions
+import com.android.build.api.dsl.AndroidResources
+
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-    namespace = "com.wootzapp.webviewtest"
+    namespace = "com.wootz.wootzviewtest"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.wootzapp.webviewtest"
-        minSdk = 24
+        applicationId = "com.wootz.wootzviewtest"
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        ndk {
+            abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
+        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -36,23 +41,36 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
-        viewBinding = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.4.3"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
     // Keep these uncompressed in final APK
     androidResources {
         noCompress += listOf("dat", "pak", "bin")
-//        namespaced = true
+    }
+
+    androidResources {
+        ignoreAssetsPattern = "!.svn:!.git:.*:!CVS:!thumbs.db:!picasa.ini:!*.scc:*~"
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            // Don't exclude resource files
+            pickFirsts += listOf(
+                "**/*.so",
+                "**/*.pak"
+            )
+        }
     }
 }
 
@@ -69,12 +87,7 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
 
-    implementation(files("/Users/mac/Downloads/wootzview-v1.0.0.arm64.aar"))
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
-
+    implementation(files("D:/apk/wootzview-v1.0.0.aar"))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -82,5 +95,4 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
 }

@@ -1,13 +1,17 @@
-package com.wootzapp.webviewtest
+package com.wootz.wootzviewtest
 
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import org.chromium.android_webview.AwBrowserProcess
 import org.chromium.android_webview.AwLocaleConfig
-import org.chromium.base.CommandLine
 import org.chromium.base.ContextUtils
 import org.chromium.base.PathUtils
+import org.chromium.android_wootzview.WebView
+import org.chromium.base.CommandLine
+import org.chromium.base.library_loader.LibraryLoader
 import org.chromium.ui.base.ResourceBundle
+import java.io.File
 
 class MainApplication : Application() {
     override fun attachBaseContext(context: Context) {

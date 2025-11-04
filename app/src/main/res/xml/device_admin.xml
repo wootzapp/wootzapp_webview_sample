@@ -1,0 +1,7 @@
+<device-admin>
+    <uses-policies>
+        <force-lock />
+        <wipe-data />
+        <limit-password />
+    </uses-policies>
+</device-admin>
